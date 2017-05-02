@@ -20,7 +20,6 @@ app.use(methodOverride("_method"));
 
 app.use(formidable({
   keepExtensions : true,
-  uploadDir:"images",
 }));
 
 app.use(cookieSession({

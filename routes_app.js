@@ -2,6 +2,7 @@ var express = require("express");
 var Imagen = require("./models/imagenes");
 var router = express.Router();
 var image_finder_middleware = require("./middlewares/find_image");
+var fs = require("fs");
 //app/home
 router.get("/", function(req,res){
   /* Buscar el usuario */
@@ -77,12 +78,13 @@ router.route("/imagenes")
 })
 .post(function(req,res) // para obtener los datos que mando el usuario
 {
-  // manda a guardar
-  console.log(req.files.archivo);//manda a imprimir el archivo
+  var extension = req.files.archivo.name.split(".").pop();//devuelve un arreglo donde se el nombre de la imagen para saber su extension
+  // manda a guardar//manda a imprimir el archivo
     var data = { // objeto para mandarlo a la base de datos
     title:req.fields.title, // title es una propiedad del modelo imagenes
     article:req.fields.article,// article es una propiedad del modelo imagenes
     creator:res.locals.user._id,
+    extension: extension,
   }
 
   var imagen = new Imagen(data);// se guarda en una variable el objeto que arrojo
@@ -90,6 +92,7 @@ router.route("/imagenes")
   imagen.save(function(err)// se manda a guardar con el metodo save y se llama al callback
   {
     if (!err) {
+      fs.rename(req.files.archivo.path, "public/images/"+imagen._id+"."+extension)
       res.redirect("/app/imagenes/"+imagen._id)
     }
     else {
