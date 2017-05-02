@@ -1,0 +1,7 @@
+extends ../../layout.jade
+block contenido
+  div(class="col-md-4 remove-float center-block big-top-space")
+    h1= imagen.title
+    h2= imagen.article
+    if (typeof imagen.creator != "undefined")
+      p Por #{imagen.creator.username}
