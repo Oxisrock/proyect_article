@@ -12,7 +12,7 @@ var methodOverride = require("method-override");
 // declaracion de Middlewares
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 app.use(express.static('public'));
-
+// vamos aver que tal
 /* /dashboard */
 
 /* /    */
