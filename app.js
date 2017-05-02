@@ -20,6 +20,7 @@ app.use(methodOverride("_method"));
 
 app.use(formidable({
   keepExtensions : true,
+  uploadDir:"images",
 }));
 
 app.use(cookieSession({
@@ -73,7 +74,8 @@ app.get("/login",function(req , res) {// para que se pueda acceder al path con l
 app.post("/users",function(req,res){ // action donde se mandara el formulario
 
 
-    var user = new User({email: req.fields.email,
+    var user = new User({
+      email: req.fields.email,
       password: req.fields.password,
       password_confirmation: req.fields.password_confirmation,
       username: req.fields.username});
